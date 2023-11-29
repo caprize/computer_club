@@ -1,0 +1,138 @@
+{% extends "Techie/base.html" %}
+
+{% block content %}      
+
+<!--Login--> 
+<!-- <div class="container py-5">
+  <h1>Add Order</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn btn-primary" type="submit">Order</button>
+  </form>
+  <p class="text-center">Don't have a nedded time? </p>
+</div> -->
+
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <div class="container py-5">
+            <h1>Order Computer</h1>
+            <form method="post" id="personForm" class="dropdown" data-cities-url="{% url 'ajax_load_cities' %}" times_url="{% url 'ajax_load_times' %}" picked_url="{% url 'ajax_load_form' %}">
+                {% csrf_token %}
+                {{ form }}
+                <!-- <input type="submit" value="Submit" > -->
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  
+  </section>End Hero
+  
+
+<!-- <section id="hero" class="d-flex align-items-center">
+
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <div class="col-lg-6">
+
+
+            <form method="post" id="personForm" class="php-email-form" data-cities-url="{% url 'ajax_load_cities' %}" times_url="{% url 'ajax_load_times' %}" picked_url="{% url 'ajax_load_form' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+              </form>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+  
+  </section>End Hero -->
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_computer_club").change(function () {
+      const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      const comp_club_id = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+          data: {
+              'comp_club_id': comp_club_id       // add the country id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+              $("#id_computer").html(data);  // replace the contents of the city input with the data that came from the server
+              /*
+
+              let html_data = '<option value="">---------</option>';
+              data.forEach(function (city) {
+                  html_data += `<option value="${city.id}">${city.name}</option>`
+              });
+              console.log(html_data);
+              $("#id_city").html(html_data);
+
+              */
+          }
+      });
+
+  });
+  $("#id_computer").change(function () {
+      const url = $("#personForm").attr("times_url");  // get the url of the `load_cities` view
+      const comp_id = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+          data: {
+              'comp_id': comp_id       // add the country id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+              $("#id_date_start").html(data);  // replace the contents of the city input with the data that came from the server
+              /*
+
+              let html_data = '<option value="">---------</option>';
+              data.forEach(function (city) {
+                  html_data += `<option value="${city.id}">${city.name}</option>`
+              });
+              console.log(html_data);
+              $("#id_city").html(html_data);
+
+              */
+          }
+      });
+
+  });
+  $("#id_date_start").change(function () {
+      const url = $("#personForm").attr("picked_url");  // get the url of the `load_cities` view
+      const time = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+          data: {
+              'time': time       // add the country id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_cities` view function
+            //   $("#id_date_start").html(data);  // replace the contents of the city input with the data that came from the server
+              /*
+
+        //       let html_data = '<option value="">---------</option>';
+        //       data.forEach(function (city) {
+        //           html_data += `<option value="${city.id}">${city.name}</option>`
+        //       });
+        //       console.log(html_data);
+        //       $("#id_city").html(html_data);
+
+        //       */
+          }
+      });
+
+  });
+</script>
+{% endblock %}

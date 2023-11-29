@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Computer club Registration</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        
+    <div class="page-header">
+        {% if user.isusing %}
+            <a href="{% url 'add_order' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="{}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+            <p class="top-menu">Hello {{ user.name }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+        {% else %}
+            
+        <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+        <p>Not logged</p>
+        {% endif %}
+        <h1><a href="/">Computer club</a></h1>
+    </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                {% if user.isusing %}
+                    <p>{{user.order}}</p>
+                    <a href="{% url 'del_order' %}" class="top-menu">aga <span class="glyphicon glyphicon-plus"></span></a>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
